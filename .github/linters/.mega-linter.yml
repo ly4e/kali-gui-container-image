@@ -6,9 +6,14 @@ EXCLUDED_DIRECTORIES:
   - Adwaita-dark-Xfce-with-Qbox-mw4
   - xfce-perchannel-xml
 
+DISABLE:
+  - COPYPASTE # Uncomment to disable checks of excessive copy-pastes
+  - TRIVY
+
 DISABLE_LINTERS:
   - REPOSITORY_TRIVY
   - COPYPASTE_JSCPD
+
 DISABLE_ERRORS_LINTERS:
   - REPOSITORY_TRIVY
   - COPYPASTE_JSCPD

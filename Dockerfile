@@ -1,9 +1,9 @@
+# hadolint ignore=DL3006
 FROM kalilinux/kali-rolling
 
 ENV DEBIAN_FRONTEND=noninteractive
-
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
-#seeing if no recommends helps install size 
  ca-certificates \
  bash-completion \
  bsdmainutils \
@@ -20,12 +20,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  tigervnc-standalone-server \
  tigervnc-tools \
  xfce4-taskmanager mousepad \
-# && apt-get upgrade -y && apt-get autoclean -y
-#
-#combining the installation sections where the no-install-recommends seems to be working
-#RUN apt-get update && \
-#    apt-get install -y \
-#    --no-install-recommends \
  evince file-roller \
  gpicview gtk2-engines-pixbuf \
  xfce4 xfce4-whiskermenu-plugin xfce4-indicator-plugin xfce4-terminal \
@@ -34,10 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && apt-get upgrade -y && apt-get clean -y \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# RUN apt-get update && apt-get install -y xrdp locales supervisor sudo ibus ibus-mozc dbus dbus-x11 && apt-get autoclean -y
-
 RUN locale-gen en_US && \
-#    apt-get install -y git tigervnc-standalone-server && \
     git clone https://github.com/novnc/noVNC.git /root/noVNC && \
     git clone https://github.com/novnc/websockify.git /root/noVNC/utils/websockify
 
@@ -64,16 +55,9 @@ RUN ln -s /root/noVNC/vnc_lite.html /root/noVNC/index.html && \
     chown -R xuser /usr/share/icons/KXicons
 
 RUN echo "xfce4-session" > /etc/skel/.xsession
-    
-#RUN apt-get update && \ 
-#    apt-get install -y xfce4-taskmanager mousepad wget && \
-#    apt-get autoclean -y
 
 COPY bg_images/squirrel.jpg /usr/share/backgrounds/xfce/default.jpg
 #RUN wget https://images.unsplash.com/photo-1533651180995-3b8dcd33e834 -O /usr/share/backgrounds/xfce/default.jpg
-
-#RUN apt-get clean && \
-#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # RUN apt-get update && apt-get install -y \
 #  awscli dirb nmap nikto \
@@ -84,9 +68,12 @@ COPY bg_images/squirrel.jpg /usr/share/backgrounds/xfce/default.jpg
 # apt-get update && apt-get install -y \
 # aircrack-ng amap amass apt-utils arping arp-scan axel bash-completion binwalk bsdmainutils bulk-extractor cewl commix crackmapexec creddump7 crunch cryptcat curl dirb dirbuster dmitry dnschef dnsenum dnsrecon dnsutils dos2unix enum4linux ethtool exiv2 expect exploitdb fierce fping ftp gcc git gobuster golang hashcat hashdeep hashid hash-identifier hotpatch hping3 hydra iputils-ping john joomscan kpcli lbd libffi-dev magicrescue make man-db masscan metasploit-framework mimikatz mlocate nasm nbtscan ncat ncrack netcat netcat-traditional netmask netsniff-ng net-tools ngrep nikto nmap nodejs npm onesixtyone oscanner passing-the-hash patator php powershell powersploit proxychains proxychains4 ptunnel pwnat python2 python3 python3-pip python3-setuptools python-dev python-setuptools rebind recon-ng responder ruby-dev samba samdump2 seclists set sipvicious skipfish sleuthkit smbclient smbmap smtp-user-enum snmp snmpcheck socat spike sqlmap ssh-audit sslscan sslsplit sslyze statsprocessor stunnel4 swaks tcpdump tcpick tcpreplay testssl.sh theharvester tnscmd10g tor udptunnel uniscan unix-privesc-check upx-ucl vim voiphopper wafw00f webshells weevely wfuzz wget whatweb whois windows-binaries winexe wordlists wpscan yersinia firefox-esr gosu armitage
 
-COPY entrypoint.sh .
+COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 WORKDIR /home/xuser
 COPY DesktopIcons/* /home/xuser/Desktop/
 ENTRYPOINT ["/entrypoint.sh"]
+
+#setting a user will require additional troubleshooting
+# USER xuser

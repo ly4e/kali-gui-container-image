@@ -7,15 +7,6 @@ EXCLUDED_DIRECTORIES:
   - xfce-perchannel-xml
 
 DISABLE:
-  - COPYPASTE # Uncomment to disable checks of excessive copy-pastes
-  - TRIVY
-
-DISABLE_LINTERS:
+  - COPYPASTE_JSCPD # Uncomment to disable checks of excessive copy-pastes
   - REPOSITORY_TRIVY
-  - COPYPASTE_JSCPD
 
-DISABLE_ERRORS_LINTERS:
-  - REPOSITORY_TRIVY
-  - COPYPASTE_JSCPD
-  - JSCPD
-  - TRIVY

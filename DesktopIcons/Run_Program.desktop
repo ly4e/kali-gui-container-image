@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Run Program...
+Comment=Enter a command you want to launch
+Exec=xfce4-appfinder --collapsed
+Icon=org.xfce.appfinder
+Path=
+Terminal=false
+StartupNotify=true
+

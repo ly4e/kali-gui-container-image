@@ -56,7 +56,7 @@ RUN ln -s /root/noVNC/vnc_lite.html /root/noVNC/index.html && \
 
 RUN echo "xfce4-session" > /etc/skel/.xsession
 
-COPY bg_images/squirrel.jpg /usr/share/backgrounds/xfce/default.jpg
+COPY bg_images/do_something_great.jpg /usr/share/backgrounds/xfce/default.jpg
 #RUN wget https://images.unsplash.com/photo-1533651180995-3b8dcd33e834 -O /usr/share/backgrounds/xfce/default.jpg
 
 # RUN apt-get update && apt-get install -y \
